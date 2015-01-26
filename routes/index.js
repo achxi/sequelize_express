@@ -13,4 +13,15 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/postgres', function(req, res) {
+  models.User.findAll({
+    include: [ models.Task ]
+  }).then(function(users) {
+    res.render('postgres', {
+      title: 'Postgres is here'
+      // users: users
+    });
+  });
+});
+
 module.exports = router;
