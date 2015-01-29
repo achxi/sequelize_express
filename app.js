@@ -10,9 +10,12 @@ var users  = require('./routes/users');
 
 var app = express();
 
+var html_dir = './html/';
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -20,7 +23,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
+// we are specifying the html directory as another public directory
+// app.use(express.static(path.join(__dirname, 'html')));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -56,5 +61,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// routes to serve the static HTML files
+// app.get('/leaflet', function(req, res) {
+//     res.sendfile(html_dir + 'leaflet.html');
+// });
 
 module.exports = app;
